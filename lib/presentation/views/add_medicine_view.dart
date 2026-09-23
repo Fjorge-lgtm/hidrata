@@ -12,8 +12,7 @@ class AddMedicineView extends ConsumerStatefulWidget {
 }
 
 class _AddMedicineViewState extends ConsumerState<AddMedicineView> {
-  final _nameController = TextEditingController();
-  final _dosageController = TextEditingController();
+  final _quantityController = TextEditingController();
   final List<TimeOfDay> _times = [];
   bool _saving = false;
 
@@ -40,14 +39,14 @@ class _AddMedicineViewState extends ConsumerState<AddMedicineView> {
   }
 
   void _save() {
-    if (_nameController.text.trim().isEmpty || _times.isEmpty) {
+    if (_quantityController.text.trim().isEmpty || _times.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: const Row(
             children: [
               Icon(Icons.warning_amber_rounded, color: AppColors.alertOrange),
               SizedBox(width: 8),
-              Text('Informe o nome e ao menos um horário.'),
+              Text('Informe a quantidade e ao menos um horário.'),
             ],
           ),
           backgroundColor: AppColors.surfaceCard,
@@ -66,20 +65,19 @@ class _AddMedicineViewState extends ConsumerState<AddMedicineView> {
         .map((t) => DateTime(now.year, now.month, now.day, t.hour, t.minute))
         .toList();
 
-    final medicine = MedicineModel()
-      ..name = _nameController.text.trim()
-      ..dosage = _dosageController.text.trim()
+    final waterIntake = MedicineModel()
+      ..name = 'Água'
+      ..dosage = _quantityController.text.trim()
       ..scheduleTimes = scheduleTimes
       ..isActive = true;
 
-    ref.read(medicineListProvider.notifier).addMedicine(medicine);
+    ref.read(medicineListProvider.notifier).addMedicine(waterIntake);
     Navigator.pop(context);
   }
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _dosageController.dispose();
+    _quantityController.dispose();
     super.dispose();
   }
 
@@ -111,7 +109,7 @@ class _AddMedicineViewState extends ConsumerState<AddMedicineView> {
                       onPressed: () => Navigator.pop(context),
                     ),
                     const Text(
-                      'Nova dose',
+                      'Novo lembrete de água',
                       style: TextStyle(
                         color: AppColors.textPrimary,
                         fontSize: 20,
@@ -158,7 +156,7 @@ class _AddMedicineViewState extends ConsumerState<AddMedicineView> {
                                   ),
                                 ),
                                 child: const Icon(
-                                  Icons.medication_rounded,
+                                  Icons.water_drop_rounded,
                                   color: AppColors.cyanVibrant,
                                   size: 34,
                                 ),
@@ -166,40 +164,24 @@ class _AddMedicineViewState extends ConsumerState<AddMedicineView> {
                             ),
                             const SizedBox(height: 24),
 
-                            // Nome
+                            // Quantidade de água
                             const _FieldLabel(
-                              label: 'Nome da dose',
+                              label: 'Quantidade de água',
                               required: true,
                             ),
                             const SizedBox(height: 8),
                             TextField(
-                              controller: _nameController,
+                              controller: _quantityController,
                               style: const TextStyle(
                                 color: AppColors.textPrimary,
                               ),
                               textCapitalization: TextCapitalization.sentences,
                               decoration: const InputDecoration(
-                                hintText: 'Ex: Losartana, Metformina...',
-                                prefixIcon: Icon(
-                                  Icons.medication_liquid_rounded,
-                                ),
+                                hintText: 'Ex: 300 ml, 1 copo...',
+                                prefixIcon: Icon(Icons.water_drop_rounded),
                               ),
                             ),
                             const SizedBox(height: 20),
-
-                            // Dosagem
-                            const _FieldLabel(label: 'Dosagem'),
-                            const SizedBox(height: 8),
-                            TextField(
-                              controller: _dosageController,
-                              style: const TextStyle(
-                                color: AppColors.textPrimary,
-                              ),
-                              decoration: const InputDecoration(
-                                hintText: 'Ex: 500mg, 1 comprimido...',
-                                prefixIcon: Icon(Icons.scale_rounded),
-                              ),
-                            ),
                           ],
                         ),
                       ),
@@ -222,7 +204,7 @@ class _AddMedicineViewState extends ConsumerState<AddMedicineView> {
                             Row(
                               children: [
                                 const _FieldLabel(
-                                  label: 'Horários de dose',
+                                  label: 'Horários para beber água',
                                   required: true,
                                 ),
                                 const Spacer(),
@@ -345,7 +327,7 @@ class _AddMedicineViewState extends ConsumerState<AddMedicineView> {
                                   ),
                                 )
                               : const Text(
-                                  'SALVAR MEDICAMENTO',
+                                  'SALVAR LEMBRETE',
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w900,

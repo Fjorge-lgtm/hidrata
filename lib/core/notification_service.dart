@@ -58,13 +58,13 @@ class NotificationService {
 
       await _plugin.zonedSchedule(
         _notificationId(medicine.id, i),
-        'Hora da dose',
-        '${medicine.name}${medicine.dosage.isNotEmpty ? ' • ${medicine.dosage}' : ''}',
+        'Hora de beber água',
+        'Lembrete de água${medicine.dosage.isNotEmpty ? ' • ${medicine.dosage}' : ''}',
         scheduled,
         const NotificationDetails(
           android: AndroidNotificationDetails(
             'hidrata_reminders',
-            'Lembretes de doses',
+            'Lembretes de água',
             importance: Importance.max,
             priority: Priority.high,
           ),

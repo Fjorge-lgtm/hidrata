@@ -24,6 +24,7 @@ subprojects {
                 if (android.namespace == null) {
                     android.namespace = project.group.toString()
                 }
+                android.compileSdkVersion(36)
                 android.compileOptions {
                     sourceCompatibility = JavaVersion.VERSION_17
                     targetCompatibility = JavaVersion.VERSION_17

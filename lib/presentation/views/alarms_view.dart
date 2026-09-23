@@ -4,7 +4,7 @@ import '../../core/theme.dart';
 import '../providers/medicine_provider.dart';
 import '../../data/models/models.dart';
 
-/// Tela que agrega os horários de todos os remédios cadastrados
+/// Tela que agrega os horários de todas as quantidades de água cadastradas
 /// e exibe como uma lista cronológica de alarmes do dia.
 class AlarmsView extends ConsumerWidget {
   const AlarmsView({super.key});
@@ -154,7 +154,7 @@ class _EmptyAlarms extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 40),
             child: Text(
-              'Cadastre uma dose com horário para ver os alarmes aqui',
+              'Cadastre uma quantidade de água com horário para ver os alarmes aqui',
               textAlign: TextAlign.center,
               style: TextStyle(color: AppColors.textHint, fontSize: 13),
             ),
@@ -223,9 +223,7 @@ class _AlarmCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    alarm.dosage.isNotEmpty
-                        ? '${alarm.medicineName} • ${alarm.dosage}'
-                        : alarm.medicineName,
+                    alarm.dosage.isNotEmpty ? 'Água • ${alarm.dosage}' : 'Água',
                     style: const TextStyle(
                       color: AppColors.textSecondary,
                       fontSize: 13,

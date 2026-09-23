@@ -56,7 +56,7 @@ class HomeView extends ConsumerWidget {
                           ),
                           const SizedBox(height: 2),
                           const Text(
-                            'Minhas doses',
+                            'Minha hidratação',
                             style: TextStyle(
                               color: AppColors.textPrimary,
                               fontSize: 24,
@@ -66,7 +66,7 @@ class HomeView extends ConsumerWidget {
                         ],
                       ),
                     ),
-                    // Despertador — módulo separado dos lembretes de remédio
+                    // Acesso aos lembretes de água
                     GestureDetector(
                       onTap: () => Navigator.push(
                         context,
@@ -137,7 +137,7 @@ class HomeView extends ConsumerWidget {
                 child: Row(
                   children: [
                     const Text(
-                      'Lista de doses',
+                      'Lembretes de água',
                       style: TextStyle(
                         color: AppColors.textPrimary,
                         fontSize: 17,
@@ -309,36 +309,40 @@ class _SummaryCard extends StatelessWidget {
               ),
             ),
             child: const Icon(
-              Icons.medication_rounded,
+              Icons.water_drop_rounded,
               color: AppColors.cyanVibrant,
               size: 28,
             ),
           ),
           const SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                count == 0
-                    ? 'Nenhuma dose'
-                    : '$count dose${count != 1 ? 's' : ''}',
-                style: const TextStyle(
-                  color: AppColors.textPrimary,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w800,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  count == 0
+                      ? 'Nenhum lembrete'
+                      : '$count lembrete${count != 1 ? 's' : ''}',
+                  style: const TextStyle(
+                    color: AppColors.textPrimary,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                count == 0
-                    ? 'Adicione sua primeira dose'
-                    : 'cadastrada${count != 1 ? 's' : ''} no app',
-                style: const TextStyle(
-                  color: AppColors.textSecondary,
-                  fontSize: 13,
+                const SizedBox(height: 2),
+                Text(
+                  count == 0
+                      ? 'Adicione seu primeiro lembrete de água'
+                      : 'de água cadastrado${count != 1 ? 's' : ''}',
+                  style: const TextStyle(
+                    color: AppColors.textSecondary,
+                    fontSize: 13,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           const Spacer(),
           Container(
@@ -381,14 +385,14 @@ class _EmptyState extends StatelessWidget {
               ),
             ),
             child: Icon(
-              Icons.medication_liquid_rounded,
+              Icons.water_drop_rounded,
               size: 52,
               color: AppColors.textHint,
             ),
           ),
           const SizedBox(height: 20),
           const Text(
-            'Nenhuma dose cadastrada',
+            'Nenhum lembrete de água cadastrado',
             style: TextStyle(
               color: AppColors.textSecondary,
               fontSize: 17,
@@ -406,7 +410,7 @@ class _EmptyState extends StatelessWidget {
   }
 }
 
-// Card de medicamento
+// Card de quantidade de água
 class _MedicineCard extends StatelessWidget {
   final dynamic med;
   final VoidCallback onDelete;
@@ -469,7 +473,7 @@ class _MedicineCard extends StatelessWidget {
                 ),
               ),
               child: Icon(
-                Icons.medication_rounded,
+                Icons.water_drop_rounded,
                 color: _accentColor,
                 size: 26,
               ),
@@ -482,7 +486,7 @@ class _MedicineCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    med.name,
+                    med.dosage.isNotEmpty ? med.dosage : 'Água',
                     style: const TextStyle(
                       color: AppColors.textPrimary,
                       fontSize: 17,
@@ -493,7 +497,7 @@ class _MedicineCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    med.dosage.isNotEmpty ? med.dosage : 'Sem dosagem',
+                    'Quantidade de água',
                     style: const TextStyle(
                       color: AppColors.textSecondary,
                       fontSize: 13,

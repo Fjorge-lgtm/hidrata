@@ -6,7 +6,7 @@ import '../../data/models/models.dart';
 import '../providers/alarm_provider.dart';
 
 /// Tela cheia exibida quando um alarme dispara — separada do fluxo de
-/// lembretes de medicamento, com sua própria identidade visual (acento
+/// lembretes de água, com sua própria identidade visual (acento
 /// laranja/vermelho de alerta em vez do ciano do restante do app).
 class AlarmRingingView extends ConsumerStatefulWidget {
   final AlarmModel alarm;
@@ -116,9 +116,7 @@ class _AlarmRingingViewState extends ConsumerState<AlarmRingingView>
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  widget.alarm.label.isNotEmpty
-                      ? widget.alarm.label
-                      : 'Alarme',
+                  widget.alarm.label.isNotEmpty ? widget.alarm.label : 'Alarme',
                   style: const TextStyle(
                     color: AppColors.textSecondary,
                     fontSize: 18,
@@ -137,7 +135,9 @@ class _AlarmRingingViewState extends ConsumerState<AlarmRingingView>
                           style: OutlinedButton.styleFrom(
                             foregroundColor: AppColors.cyanVibrant,
                             side: const BorderSide(
-                                color: AppColors.cyanVibrant, width: 1.5),
+                              color: AppColors.cyanVibrant,
+                              width: 1.5,
+                            ),
                             minimumSize: const Size.fromHeight(56),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
